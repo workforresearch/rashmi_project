@@ -1,12 +1,12 @@
 name: build and push
 
-on:
-  push:
-    branches:
-      - 'master'
-  pull_request:
-    branches:
-      - 'master'
+on: [push]
+#   push:
+#     branches:
+#       - 'master'
+#   pull_request:
+#     branches:
+#       - 'master'
 
 jobs:
   docker:
