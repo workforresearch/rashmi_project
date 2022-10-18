@@ -1,11 +1,20 @@
 ## Docker commands used to build the application 
 # TODO: insert the docker build command
+docker build -t techtrends .
 
 ## Docker commands used to run the application
-# TODO: insert the docker run command
+# TODO: insert the docker run command and expose port 3111
+docker run -p 3111:3111 <image-id>
 
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
+dokcer logs <container-id>
 
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
+INFO:werkzeug:127.0.0.1 - - [18/Oct/2022 09:48:38] "GET /healthz HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Oct/2022 09:48:45] "GET /metrics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Oct/2022 09:48:51] "GET /create HTTP/1.1" 200 -
+
+# To expose the port 7111
+docker run -p 7111:3111 <image-id>
