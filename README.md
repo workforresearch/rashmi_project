@@ -5,4 +5,3 @@
 
 **Instructor**: https://github.com/kgamanji
 
-yes this is right
