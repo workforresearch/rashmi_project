@@ -6,7 +6,7 @@ COPY . /app
 
 WORKDIR /app/project/techtrends/
 
-RUN /bin/sh -c pip install -r requirements.txt
+RUN /bin/sh -c pip3 install -r requirements.txt
 
 RUN /bin/sh -c python init_db.py
 
