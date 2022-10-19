@@ -2,13 +2,17 @@ FROM python:3.8
 
 LABEL maintainer="Rashmi"
 
-COPY . /app
+RUN mkdir /app
 
-WORKDIR /app/techtrends/
+WORKDIR /app
+
+COPY techtrends/requirements.txt requirements.txt
 
 RUN /bin/sh -c pip install -r requirements.txt
 
 RUN /bin/sh -c python init_db.py
+
+COPY . .
 
 CMD ["python", "app.py"]
  
