@@ -6,7 +6,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY techtrends/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 
 RUN /bin/sh -c pip install -r requirements.txt
 
