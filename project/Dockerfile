@@ -6,7 +6,7 @@ COPY . /app
 
 WORKDIR /app/techtrends/
 
-RUN PYTHONPATH=/usr/bin/python pip install -r requirements.txt
+RUN /bin/sh -c pip install -r requirements.txt
 
 RUN python init_db.py
 
