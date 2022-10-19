@@ -8,7 +8,7 @@ WORKDIR /app/techtrends/
 
 RUN /bin/sh -c pip install -r requirements.txt
 
-RUN python init_db.py
+RUN /bin/sh -c python init_db.py
 
 CMD ["python", "app.py"]
  
