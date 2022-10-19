@@ -4,7 +4,7 @@ LABEL maintainer="Rashmi"
 
 COPY . /app
 
-WORKDIR /app
+WORKDIR /app/techtrends/
 
 RUN /bin/sh -c pip install -r requirements.txt
 
