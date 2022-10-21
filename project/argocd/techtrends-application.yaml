@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/vlalpha1
+Kind: Application
+metadata:
+  name: techtrends-application
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+	server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: techtrends
+	repoURL: https://github.com/workforresearch/rashmi_project
+	targetRevision: Head
+  synPolicy: {}
