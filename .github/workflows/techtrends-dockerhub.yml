@@ -30,4 +30,4 @@ jobs:
         with:
           file: project/Dockerfile
           push: true
-          tags: rashmiphilips/techtrends_repo:latest
+          tags: rashmiphilips/techtrends_repo:v1.0.2
