@@ -12,6 +12,6 @@ spec:
     helm:
       valueFiles:
       - values-staging.yaml
-    path: project/helm/stag
+    path: project/argocd/staging
     repoURL: https://github.com/workforresearch/rashmi_project
     targetRevision: HEAD
