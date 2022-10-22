@@ -12,6 +12,6 @@ spec:
     helm:
       valueFiles:
       - values-staging.yaml
-    path: project/helm
+    path: project/helm/stag
     repoURL: https://github.com/workforresearch/rashmi_project
     targetRevision: HEAD
