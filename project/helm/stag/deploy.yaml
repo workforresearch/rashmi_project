@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: techtrends-staging
+  name: techtrends-staging
+  namespace: {{ .values-staging.namespace.name }}
+spec:
+  replicas: {{ .values-staging.replicaCount }}
+  selector:
+    matchLabels:
+      app: techtrends-staging
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: techtrends-staging
+    spec:
+      containers:
+      - image: rashmiphilips/techtrends_repo:latest
+        imagePullPolicy: IfNotPresent
+        name: techtrends-staging
+        ports:
+        - containerPort: 3111
+          protocol: TCP
+        livenessProbe:
+           httpGet:
+             path: /healthz
+             port: 3111
+        readinessProbe:
+           httpGet:
+             path: /healthz
+             port: 3111
+        resources:
+          requests:
+            memory: {{ .values-staging.resources.memory }}
+            cpu: {{ .values-staging.resources.cpu }}
+          limits:
+            memory: {{ .values-staging.limits.memory }}
+            cpu: {{ .values-staging.limits.cpu }}
