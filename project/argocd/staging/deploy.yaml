@@ -5,9 +5,9 @@ metadata:
   labels:
     app: techtrends-staging
   name: techtrends-staging
-  namespace: {{ .values.namespace.name }}
+  namespace: {{ .values-staging.namespace.name }}
 spec:
-  replicas: {{ .values.replicaCount }}
+  replicas: {{ .values-staging.replicaCount }}
   selector:
     matchLabels:
       app: techtrends-staging
@@ -38,8 +38,8 @@ spec:
              port: 3111
         resources:
           requests:
-            memory: {{ .values.resources.memory }}
-            cpu: {{ .values.resources.cpu }}
+            memory: {{ .values-staging.resources.memory }}
+            cpu: {{ .values-staging.resources.cpu }}
           limits:
-            memory: {{ .values.limits.memory }}
-            cpu: {{ .values.limits.cpu }}
+            memory: {{ .values-staging.limits.memory }}
+            cpu: {{ .values-staging.limits.cpu }}
