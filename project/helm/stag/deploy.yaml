@@ -1,16 +1,19 @@
+deploy the application using helm staging
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
   labels:
-    app: techtrends
-  name: techtrends
-  namespace: sandbox
+    app: techtrends-staging
+  name: techtrends-staging
+  namespace: {{ .values.namespace.name }}
 spec:
-  replicas: 1
+  replicas: {{ .values.replicaCount }}
   selector:
     matchLabels:
-      app: techtrends
+      app: techtrends-staging
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,12 +22,12 @@ spec:
   template:
     metadata:
       labels:
-        app: techtrends
+        app: techtrends-staging
     spec:
       containers:
       - image: rashmiphilips/techtrends_repo:latest
         imagePullPolicy: IfNotPresent
-        name: techtrends
+        name: techtrends-staging
         ports:
         - containerPort: 3111
           protocol: TCP
@@ -38,8 +41,8 @@ spec:
              port: 3111
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: {{ .values.resources.memory }}
+            cpu: {{ .values.resources.cpu }}
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: {{ .values.limits.memory }}
+            cpu: {{ .values.limits.cpu }}
