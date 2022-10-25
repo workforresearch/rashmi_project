@@ -3,7 +3,7 @@ namespace:
 service:
   port: 7111
 image:
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 replicaCount: 5
 resources:
  requests:
