@@ -4,14 +4,14 @@ metadata:
   labels:
     app: techtrends
     tag: latest
-  name: techtrends
-  namespace: sandbox
+  name: techtrends-staging
+  namespace: {{ .values-staging.namespace.name }}
 spec:
   ports:
   - port: 4111
     protocol: TCP
     targetPort: 3111
   selector:
-    app: techtrends
+    app: techtrends-staging
     tag: latest
   type: ClusterIP
