@@ -1,12 +1,31 @@
+import sys
 import sqlite3
 import logging
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
+# build format
+format_output = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# build StreamHandler for sys.stderr                                                                                                   
+error = logging.StreamHandler(stream=sys.stderr)
+error.setLevel(logging.DEBUG)
+error.setFormatter(format_output)
+
+# build StreamHandler for sys.stdout
+out = logging.StreamHandler(stream=sys.stdout)
+out.setFormatter(format_output)
+out.setLevel(logging.DEBUG)
+
+root = logging.getLogger()
+root.addHandler(out)
+root.addHandler(error)
+
+
+
 connection_number=0
 post_count = 0
-# Function to get a database connection.
-# This function connects to database with the name `database.db`
+
 def get_db_connection():
     global connection_number
     connection = sqlite3.connect('database.db')
@@ -41,16 +60,15 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        app.logger.error('Page not found')
         return render_template('404.html'), 404
     else:
-        app.logger.info('retrieved '+ post[post_id])
         return render_template('post.html', post=post)
+
+
 
 # Define the About Us page
 @app.route('/about')
 def about():
-    app.logger.info ('About Us page is retrieved')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -68,10 +86,10 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-            app.logger.info('New post created' + title)
             return redirect(url_for('index'))
-
     return render_template('create.html')
+
+
 
 # define the endpoints for health check status
 @app.route('/healthz')
@@ -81,7 +99,6 @@ def status():
         status=200,
         mimetype='application/json'
   ) 
-    app.logger.info('Status request successfull')
     return response    
 
 
@@ -95,8 +112,8 @@ def metrics():
         status=200,
         mimetype='application/json'
   )
-    app.logger.info('Metrics request successfull')
     return response
+
 
 def get_post_count():
     connection = get_db_connection()
@@ -106,7 +123,6 @@ def get_post_count():
     connection.close()
     return len(posts)
 
-# start the application on port 3111
+
 if __name__ == "__main__":
-    logging.basicConfig(filename='app.log',level=logging.DEBUG)
     app.run(host='0.0.0.0', port='3111')
