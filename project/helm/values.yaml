@@ -12,6 +12,7 @@ image:
     rashmiphilips/techtrends_repo 
   tag: latest
   pullPolicy: IfNotPresent
+  
 
 replicaCount: 1
 
@@ -23,6 +24,13 @@ resources:
     memory: 128Mi
     cpu: 500m
 
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 3111
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 3111
+
 containerPort: 3111
-livenessProbe_path: /healthz
-readinessProbe_path: /healthz
