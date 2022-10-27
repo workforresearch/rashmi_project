@@ -4,22 +4,8 @@ import logging
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
-# build format
-format_output = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-# build StreamHandler for sys.stderr                                                                                                   
-error = logging.StreamHandler(stream=sys.stderr)
-error.setLevel(logging.DEBUG)
-error.setFormatter(format_output)
-
-# build StreamHandler for sys.stdout
-out = logging.StreamHandler(stream=sys.stdout)
-out.setFormatter(format_output)
-out.setLevel(logging.DEBUG)
-
-root = logging.getLogger()
-root.addHandler(out)
-root.addHandler(error)
+logging.basicConfig(format='%(asctime)s - %(message)s')
+log = logging.getLogger(__name__)
 
 
 
@@ -60,8 +46,10 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
+        log.warning('NO ARTICLE FOUND FOR POST: '+str(post_id))
         return render_template('404.html'), 404
     else:
+        log.warning('Article "'+str(post_id)+'" retrieved!')
         return render_template('post.html', post=post)
 
 
@@ -69,6 +57,7 @@ def post(post_id):
 # Define the About Us page
 @app.route('/about')
 def about():
+    log.warning('The "About us" page is retrieved!')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -86,6 +75,7 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
+            log.warning('The new article "New" has been created!')
             return redirect(url_for('index'))
     return render_template('create.html')
 
@@ -99,6 +89,7 @@ def status():
         status=200,
         mimetype='application/json'
   ) 
+    log.warning('Status request sucessfull!')
     return response    
 
 
@@ -112,6 +103,7 @@ def metrics():
         status=200,
         mimetype='application/json'
   )
+    log.warning('Metrics request sucessfull!')
     return response
 
 
@@ -124,5 +116,5 @@ def get_post_count():
     return len(posts)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":   
     app.run(host='0.0.0.0', port='3111')
