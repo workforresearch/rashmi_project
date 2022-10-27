@@ -4,7 +4,7 @@ service:
   port: 7111
 image:
   pullPolicy: IfNotPresent
-replicaCount: 5
+replicaCount: 3
 resources:
  requests:
     memory: "90Mi"
