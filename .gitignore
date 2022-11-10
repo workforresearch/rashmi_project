@@ -35,3 +35,10 @@ UserInterfaceState.xcuserstate
 node_modules
 venv/
 .vscode
+.env/
+.venv/
+.vagrant/
+.myvenv/
+__pycache__/
+.vagrant/
+
